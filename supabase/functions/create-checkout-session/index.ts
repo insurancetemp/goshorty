@@ -32,6 +32,8 @@ Deno.serve(async (request) => {
     const registration = String(body.registration || "").trim().toUpperCase();
     const customerName = String(body.customerName || "").trim();
     const customerEmail = String(body.customerEmail || "").trim().toLowerCase();
+    const customerPhone = String(body.customerPhone || "").trim();
+    const dateOfBirth = String(body.dateOfBirth || "");
     const startValue = String(body.coverStart || "");
     if (!plan || registration.length < 2 || registration.length > 8 ||
         !/^[A-Z0-9 ]+$/.test(registration) || !customerName ||
@@ -64,6 +66,8 @@ Deno.serve(async (request) => {
       metadata: {
         customer_name: customerName,
         customer_email: customerEmail,
+        customer_phone: customerPhone,
+        driver_date_of_birth: dateOfBirth,
         vehicle_registration: registration,
         plan: planKey,
         cover_start: start.toISOString(),
