@@ -101,6 +101,7 @@ export default function Home() {
               </div>
               {message && <p className="form-message" role="status">{message}</p>}
             </form>
+            <Link className="quote-prices-link" href="/quote/">View daily, weekly and monthly prices <span aria-hidden="true">→</span></Link>
             <div className="quote-bottom-line" />
             <p className="quote-disclaimer">Website preview – no live quote or insurance cover is available yet.</p>
           </div>
