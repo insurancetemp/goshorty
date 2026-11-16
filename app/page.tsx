@@ -69,9 +69,9 @@ export default function Home() {
               Need to borrow a car, share the driving or get behind the wheel for a little while? Explore flexible temporary car insurance for the time you need.
             </p>
             <div className="hero-points">
-              <div><span className="check-icon">✓</span> Flexible short-term cover</div>
+              <div><span className="check-icon">✓</span> Fully comprehensive cover planned</div>
               <div><span className="check-icon">✓</span> A simple online journey</div>
-              <div><span className="check-icon">✓</span> Cover options explained clearly</div>
+              <div><span className="check-icon">✓</span> Fully comprehensive cover planned</div>
             </div>
             <a className="text-link" href="#how-it-works">Discover how it works <span>→</span></a>
           </div>
@@ -79,8 +79,8 @@ export default function Home() {
           <div className="quote-card">
             <h2>Get Temporary Car Insurance in<br />Under 2 Minutes</h2>
             <p className="quote-subheading">Short term cover for cars</p>
-            <p className="quote-intro">Flexible short-term cover from 1 hour to 28 days – without the annual commitment.</p>
-            <div className="quote-divider"><span>Cover from <strong>1 hour to 28 days</strong> for your car</span></div>
+            <p className="quote-intro">Proposed daily, weekly and monthly options with fully comprehensive cover.</p>
+            <div className="quote-divider"><span>Proposed fully comprehensive cover for your car</span></div>
             <form onSubmit={handleQuoteSubmit} noValidate>
               <label className="sr-only" htmlFor="registration">Vehicle registration</label>
               <div className="quote-action-row">
