@@ -6,9 +6,9 @@ export const metadata = {
 };
 
 const plans = [
-  { period: "Daily", price: "£20", description: "A short-term option for a day when you only need temporary use of a car." },
-  { period: "Weekly", price: "£100", description: "A week-long option for a little more flexibility." },
-  { period: "Monthly", price: "£250", description: "A monthly option for longer temporary driving needs.", featured: true }
+  { period: "Daily", price: "£20", description: "Proposed fully comprehensive cover for one day, subject to insurer terms and eligibility." },
+  { period: "Weekly", price: "£100", description: "Proposed fully comprehensive cover for seven days, subject to insurer terms and eligibility." },
+  { period: "Monthly", price: "£250", description: "Proposed fully comprehensive cover for a month, subject to insurer terms and eligibility.", featured: true }
 ];
 
 export default function QuotePage() {
@@ -40,13 +40,13 @@ export default function QuotePage() {
               <article className={plan.featured ? "pricing-card pricing-card-featured" : "pricing-card"} key={plan.period}>
                 <h2 className="pricing-period">{plan.period}</h2>
                 <p className="pricing-amount">{plan.price}</p>
-                <p className="pricing-caption">Proposed {plan.period.toLowerCase()} price</p>
+                <p className="pricing-caption">Proposed {plan.period.toLowerCase()} price</p><p className="pricing-cover-label">Fully comprehensive cover</p>
                 <p className="pricing-description">{plan.description}</p>
                 <div className="pricing-status">Not yet available to purchase</div>
               </article>
             ))}
           </div>
-          <p className="pricing-disclaimer"><strong>Important:</strong> These are proposed example prices only, not live insurance quotes or confirmed premiums. No policy is currently available to buy through this website and no insurance cover is provided. Final prices, eligibility, cover and policy terms would need to be confirmed by an authorised insurance provider.</p>
+          <p className="pricing-disclaimer"><strong>Important:</strong> These are proposed example prices and intended cover levels only, not live insurance quotes or confirmed premiums. Fully comprehensive cover is not yet available to buy through this website and no insurance cover is provided. An authorised insurance provider must confirm the cover, eligibility, prices and policy terms before launch.</p>
           <Link className="pricing-back" href="/">← Back to GoShorty</Link>
         </div>
       </section>
