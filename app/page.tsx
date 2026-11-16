@@ -213,7 +213,7 @@ export default function Home() {
           <div className="footer-col"><strong>Information</strong><a href="#faqs">Eligibility and policy terms</a><a href="#contact">Privacy information</a><a href="#contact">Cookie information</a></div>
           <div className="footer-col"><strong>Get in touch</strong><a href="mailto:hello@goshorty.co.uk">Email GoShorty</a><span>Customer support</span></div>
         </div>
-        <div className="container footer-bottom"><span>© {new Date().getFullYear()} GoShorty. All rights reserved.</span><span>Website preview — insurance products and quotes are not currently available through this rebuild.</span></div>
+        <div className="container footer-bottom"><span>© {new Date().getFullYear()} GoShorty. All rights reserved.</span><span>GoShorty</span></div>
       </footer>
     </main>
   );
