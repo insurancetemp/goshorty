@@ -38,7 +38,7 @@ export default function Home() {
       setMessage("Please enter your vehicle registration.");
       return;
     }
-    setMessage("This is a website preview. The live insurer quote connection is not set up, so no quote has been requested and no cover is in place.");
+    setMessage("This is a website preview. The insurer has confirmed the prices, but the live quote and policy connection is not set up yet. No quote has been requested and no cover is in place.");
   }
 
   return (
@@ -79,8 +79,8 @@ export default function Home() {
           <div className="quote-card">
             <h2>Get Temporary Car Insurance in<br />Under 2 Minutes</h2>
             <p className="quote-subheading">Short term cover for cars</p>
-            <p className="quote-intro">Proposed daily, weekly and monthly options with fully comprehensive cover.</p>
-            <div className="quote-divider"><span>Proposed fully comprehensive cover for your car</span></div>
+            <p className="quote-intro">Daily, weekly and monthly fully comprehensive cover, with the same price for any car and any driver age.</p>
+            <div className="quote-divider"><span>Same fixed price for any car and any driver age</span></div>
             <form onSubmit={handleQuoteSubmit} noValidate>
               <label className="sr-only" htmlFor="registration">Vehicle registration</label>
               <div className="quote-action-row">
