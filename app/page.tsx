@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 
 const durations = ["1 hour", "2 hours", "4 hours", "1 day", "2 days", "1 week", "2 weeks", "Up to 28 days"];
 
@@ -42,16 +43,6 @@ export default function Home() {
 
   return (
     <main>
-      <div className="top-strip">
-        <div className="container top-strip-inner">
-          <span>Short-term cover, made simple</span>
-          <div className="top-links">
-            <a href="#how-it-works">How it works</a>
-            <a href="#help">Help</a>
-          </div>
-        </div>
-      </div>
-
       <header className="site-header">
         <div className="container header-inner">
           <a className="brand" href="/" aria-label="GoShorty home">
@@ -63,7 +54,7 @@ export default function Home() {
             <a href="#faqs">FAQs</a>
             <a href="#contact">Contact</a>
           </nav>
-          <a className="header-cta" href="#get-a-quote">Get a quote <span aria-hidden="true">→</span></a>
+          <Link className="header-cta" href="/sign-in/">Sign in <span aria-hidden="true">↗</span></Link>
         </div>
       </header>
 
