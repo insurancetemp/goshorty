@@ -108,7 +108,6 @@ export default function Home() {
                 </div>
                 <button className="quote-submit" type="submit">Get A Quote <span aria-hidden="true">➜</span></button>
               </div>
-              <p className="quote-reg-help">Don’t know the reg? Click here.</p>
               {message && <p className="form-message" role="status">{message}</p>}
             </form>
             <div className="quote-bottom-line" />
