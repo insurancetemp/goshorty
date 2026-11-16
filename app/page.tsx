@@ -59,7 +59,7 @@ export default function Home() {
       <header className="site-header">
         <div className="container header-inner">
           <a className="brand" href="/" aria-label="GoShorty home">
-            <span className="brand-mark">go</span><span className="brand-word">shorty</span><span className="brand-dot">.</span>
+            <img className="brand-logo" src="https://www.ballantineinsuranceni.co.uk/wp-content/uploads/goshorty-logo-master-rgb-1852px%4072ppi.jpg" alt="GoShorty" />
           </a>
           <nav className="desktop-nav" aria-label="Main navigation">
             <a href="#temporary-car-insurance">Temporary car insurance</a>
@@ -239,7 +239,7 @@ export default function Home() {
       <footer className="site-footer" id="contact">
         <div className="container footer-main">
           <div className="footer-brand-col">
-            <a className="brand brand-footer" href="/"><span className="brand-mark">go</span><span className="brand-word">shorty</span><span className="brand-dot">.</span></a>
+            <a className="brand brand-footer" href="/" aria-label="GoShorty home"><img className="brand-logo brand-logo-inverted" src="https://warrantysolutionsgroup.co.uk/wp-content/uploads/2024/11/goshorty-logo-inverted-rgb-1852px%4072ppi.png" alt="GoShorty" /></a>
             <p>Temporary car insurance, made straightforward.</p>
           </div>
           <div className="footer-col"><strong>Explore</strong><a href="#temporary-car-insurance">Temporary car insurance</a><a href="#how-it-works">How it works</a><a href="#faqs">FAQs</a></div>
