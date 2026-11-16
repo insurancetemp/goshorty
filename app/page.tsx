@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const durations = ["1 hour", "2 hours", "4 hours", "1 day", "2 days", "1 week", "2 weeks", "Up to 28 days"];
 
@@ -29,6 +30,7 @@ const faqs = [
 ];
 
 export default function Home() {
+  const router = useRouter();
   const [registration, setRegistration] = useState("");
   const [message, setMessage] = useState("");
 
@@ -38,7 +40,7 @@ export default function Home() {
       setMessage("Please enter your vehicle registration.");
       return;
     }
-    setMessage("This is a website preview. The insurer has confirmed the prices, but the live quote and policy connection is not set up yet. No quote has been requested and no cover is in place.");
+    router.push(`/get-a-quote/?reg=${encodeURIComponent(registration.trim().toUpperCase())}`);
   }
 
   return (
