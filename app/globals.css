@@ -49,26 +49,29 @@ button, input, select { font: inherit; }
 .hero-shape-one { width: 600px; height: 600px; right: -260px; top: -310px; }
 .hero-shape-two { width: 430px; height: 430px; right: -170px; top: -225px; }
 
-.quote-card { background: #fff; border-radius: 13px; padding: 30px; box-shadow: 0 20px 55px #183b5c18; border: 1px solid #e6edf2; }
-.quote-card-heading { display: flex; justify-content: space-between; align-items: center; }
-.quote-kicker { font-size: 9px; font-weight: 900; letter-spacing: 1.4px; color: #789a22; }
-.quote-card h2 { font-size: 27px; letter-spacing: -.8px; color: var(--navy); margin: 6px 0 0; }
-.quote-car-icon { display: grid; place-items: center; width: 47px; height: 47px; border-radius: 12px; background: #f0f7dd; font-size: 23px; }
-.quote-intro { font-size: 13px; line-height: 1.55; color: var(--muted); margin: 12px 0 21px; }
-.quote-card form { display: grid; gap: 9px; }
-.quote-card label { font-size: 12px; color: #314960; font-weight: 800; margin-top: 5px; }
-.registration-field { display: flex; border: 1px solid #ccd7e0; border-radius: 5px; overflow: hidden; height: 52px; }
-.gb-mark { width: 43px; background: #f0f3f6; color: #244566; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; border-right: 1px solid #d5dfe6; }
-.gb-mark span { font-size: 13px; line-height: 15px; }
-.gb-mark small { font-size: 8px; font-weight: 900; }
-.registration-field input { min-width: 0; flex: 1; border: 0; outline: none; padding: 0 15px; color: var(--navy); font-weight: 900; font-size: 17px; letter-spacing: 1.4px; text-transform: uppercase; }
-.registration-field input::placeholder { color: #9aa8b5; font-size: 13px; }
-.form-control { width: 100%; min-height: 47px; padding: 0 12px; border: 1px solid #ccd7e0; border-radius: 5px; background: white; color: #344b61; outline-color: #a9d637; font-size: 13px; }
-.quote-submit { display: flex; justify-content: space-between; align-items: center; width: 100%; border: 0; border-radius: 5px; background: var(--green); color: var(--navy-deep); padding: 16px 18px; margin-top: 9px; cursor: pointer; font-weight: 900; transition: .2s ease; }
-.quote-submit span { font-size: 20px; }
-.quote-small { color: #8795a2; font-size: 10px; line-height: 1.5; text-align: center; margin: 2px 0 4px; }
-.form-message { background: #fff7df; color: #725411; border: 1px solid #f0dfa8; border-radius: 5px; padding: 10px; font-size: 11px; line-height: 1.5; margin: 2px 0; }
-.quote-card-foot { display: flex; justify-content: center; align-items: center; gap: 7px; border-top: 1px solid #edf1f4; padding-top: 15px; color: #788897; font-size: 10px; }
+.quote-card { background: rgba(10, 10, 27, .96); border: 1px solid #383a3d; border-radius: 2px; padding: 28px 25px 22px; color: #fff; box-shadow: 0 18px 48px #080b1d35; text-align: center; }
+.quote-card h2 { color: #fff; font-family: Georgia, "Times New Roman", serif; font-size: clamp(25px, 2.3vw, 32px); line-height: 1.12; letter-spacing: -.45px; margin: 0 auto 10px; }
+.quote-subheading { color: #f4f4f7; font-family: Georgia, "Times New Roman", serif; font-size: clamp(19px, 1.8vw, 25px); margin: 0 0 15px; }
+.quote-intro { color: #e5e5eb; font-size: 13px; line-height: 1.65; letter-spacing: .25px; margin: 0 auto 20px; }
+.quote-divider { display: flex; align-items: center; gap: 13px; color: #f2f2f5; font-size: 12px; letter-spacing: .2px; margin: 0 0 16px; white-space: nowrap; }
+.quote-divider::before, .quote-divider::after { content: ""; height: 1px; background: #45463e; flex: 1; }
+.quote-divider strong { color: #fff; }
+.quote-card form { display: grid; gap: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.quote-action-row { display: grid; grid-template-columns: 1fr .92fr; gap: 14px; align-items: center; }
+.registration-field { display: flex; border: 3px solid #101018; border-radius: 8px; overflow: hidden; height: 58px; background: #fff; }
+.gb-mark { width: 48px; flex: 0 0 48px; background: #3479ed; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; border-right: 1px solid #d5dfe6; }
+.gb-mark span { font-size: 23px; line-height: 24px; }
+.gb-mark small { font-size: 10px; font-weight: 900; letter-spacing: 2px; }
+.registration-field input { min-width: 0; flex: 1; width: 100%; border: 0; outline: none; padding: 0 9px; color: #888; font-weight: 900; font-size: clamp(17px, 2vw, 26px); letter-spacing: 2px; text-align: center; text-transform: uppercase; }
+.registration-field input::placeholder { color: #898989; font-size: clamp(14px, 1.7vw, 22px); letter-spacing: 2px; }
+.quote-submit { display: flex; justify-content: center; align-items: center; gap: 12px; width: 100%; min-height: 58px; border: 2px solid #76f4a6; border-radius: 999px; background: #62e99a; color: #092b25; padding: 12px 14px; margin: 0; cursor: pointer; font-family: Georgia, "Times New Roman", serif; font-size: 18px; font-weight: 900; transition: .2s ease; white-space: nowrap; }
+.quote-submit:hover { background: #7af5aa; transform: translateY(-1px); }
+.quote-submit span { font-family: Arial, sans-serif; font-size: 19px; }
+.quote-reg-help { color: #e9e9ee; font-size: 11px; margin: 7px 0 14px; }
+.form-message { background: #fff7df; color: #725411; border: 1px solid #f0dfa8; border-radius: 5px; padding: 10px; font-size: 11px; line-height: 1.5; margin: 8px 0; text-align: left; }
+.quote-bottom-line { border-top: 1px solid #45463e; margin: 0 0 16px; }
+.quote-disclaimer { color: #b8bac4; font-size: 10px; line-height: 1.5; margin: 0; }
 
 .trust-band { border-bottom: 1px solid var(--line); background: #fff; }
 .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); padding-top: 23px; padding-bottom: 23px; }
@@ -175,7 +178,10 @@ button, input, select { font: inherit; }
   .hero-grid { grid-template-columns: 1fr; gap: 37px; }
   .hero h1 { font-size: clamp(43px, 12vw, 60px); letter-spacing: -2.7px; }
   .hero-lede { font-size: 15px; }
-  .quote-card { padding: 23px 20px; }
+  .quote-card { padding: 25px 18px 20px; }
+  .quote-action-row { grid-template-columns: 1fr; gap: 10px; }
+  .quote-submit { min-height: 54px; }
+  .quote-divider { font-size: 10px; gap: 8px; }
   .trust-grid { grid-template-columns: 1fr; gap: 15px; padding-top: 20px; padding-bottom: 20px; }
   .trust-item { justify-content: flex-start; border: 0; }
   .section { padding: 65px 0; }
@@ -199,5 +205,8 @@ button, input, select { font: inherit; }
   .header-cta { padding: 11px 10px; }
   .brand-logo { width: 100px; }
   .brand-logo-inverted { width: 100px; }
-  .quote-card { padding: 20px 16px; }
+  .quote-card { padding: 22px 13px 18px; }
+  .quote-action-row { grid-template-columns: 1fr; }
+  .registration-field { height: 54px; }
+  .quote-divider { white-space: normal; }
 }
