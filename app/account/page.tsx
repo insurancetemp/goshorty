@@ -5,7 +5,7 @@ import Link from "next/link";
 import { createClient, type User } from "@supabase/supabase-js";
 
 type Order = {
-  id: string; order_reference: string; vehicle_registration: string; plan: string;
+  id: string; order_reference: string; vehicle_registration: string; plan: string; customer_phone: string | null; driver_date_of_birth: string | null;
   amount_pence: number; currency: string; cover_start: string; cover_end: string;
   payment_status: string; created_at: string;
 };
@@ -27,7 +27,7 @@ export default function AccountPage() {
       if (!active) return;
       if (error || !data.user) { window.location.assign("/goshorty/sign-in/"); return; }
       setUser(data.user);
-      const result = await supabase.from("orders").select("id,order_reference,vehicle_registration,plan,amount_pence,currency,cover_start,cover_end,payment_status,created_at").order("created_at", { ascending: false });
+      const result = await supabase.from("orders").select("id,order_reference,vehicle_registration,plan,customer_phone,driver_date_of_birth,amount_pence,currency,cover_start,cover_end,payment_status,created_at").order("created_at", { ascending: false });
       if (!active) return;
       if (result.error) setMessage(result.error.message);
       else { setOrders(result.data || []); setMessage(result.data?.length ? "" : "Your orders will appear here."); }
@@ -53,6 +53,9 @@ export default function AccountPage() {
           <p style={{ margin: "9px 0", color: "#536174", fontSize: 13 }}>{order.plan.charAt(0).toUpperCase() + order.plan.slice(1)} package · {order.vehicle_registration}</p>
           <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>From: {new Date(order.cover_start).toLocaleString("en-GB")}</p>
           <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Until: {new Date(order.cover_end).toLocaleString("en-GB")}</p>
+          {order.driver_date_of_birth && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Driver date of birth: {order.driver_date_of_birth}</p>}
+          {order.customer_phone && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Contact: {order.customer_phone}</p>}
+          <button type="button" onClick={() => window.print()} className="pricing-choose-link">Print order document</button>
           <p style={{ margin: "9px 0 0", color: "#4d2d83", fontSize: 12, fontWeight: 800 }}>Payment: {order.payment_status}</p>
         </article>)}
         {!busy && message && <p className="getquote-notice">{message}</p>}
