@@ -48,13 +48,13 @@ export default function Home() {
           <a className="brand" href="/" aria-label="GoShorty home">
             <img className="brand-logo" src="https://www.ballantineinsuranceni.co.uk/wp-content/uploads/goshorty-logo-master-rgb-1852px%4072ppi.jpg" alt="GoShorty" />
           </a>
-          <nav className="desktop-nav" aria-label="Main navigation">
-            <a href="#temporary-car-insurance">Temporary car insurance</a>
-            <a href="#how-it-works">How it works</a>
-            <a href="#faqs">FAQs</a>
-            <a href="#contact">Contact</a>
-          </nav>
-          <Link className="header-cta" href="/sign-in/">Sign in <span aria-hidden="true">↗</span></Link>
+          <Link className="header-signin" href="/sign-in/" aria-label="Sign in to the online portal">
+            <svg className="signin-person" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="6.5" r="3.4" />
+              <path d="M4.8 21v-2.1a7.2 7.2 0 0 1 14.4 0V21" />
+            </svg>
+            <span>Sign In</span>
+          </Link>
         </div>
       </header>
 
