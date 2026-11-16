@@ -42,7 +42,7 @@ export default function QuotePage() {
                 <p className="pricing-amount">{plan.price}</p>
                 <p className="pricing-caption">Fixed {plan.period.toLowerCase()} price</p><p className="pricing-cover-label">Fully comprehensive cover</p>
                 <p className="pricing-description">{plan.description}</p>
-                <div className="pricing-status">Not yet available to purchase</div>
+                <Link className="pricing-choose-link" href={`/get-a-quote/?plan=${plan.period.toLowerCase()}`}>Choose {plan.period.toLowerCase()} <span>→</span></Link>
               </article>
             ))}
           </div>
