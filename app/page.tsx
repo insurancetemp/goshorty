@@ -29,19 +29,15 @@ const faqs = [
 
 export default function Home() {
   const [registration, setRegistration] = useState("");
-  const [duration, setDuration] = useState("1 day");
-  const [startDate, setStartDate] = useState("");
   const [message, setMessage] = useState("");
 
   function handleQuoteSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!registration.trim() || !startDate) {
-      setMessage("Please enter your vehicle registration and cover start date.");
+    if (!registration.trim()) {
+      setMessage("Please enter your vehicle registration.");
       return;
     }
-    setMessage(
-      "Your details are ready. The live insurer quote connection has not been configured yet, so no quote has been requested and no cover is in place."
-    );
+    setMessage("This is a website preview. The live insurer quote connection is not set up, so no quote has been requested and no cover is in place.");
   }
 
   return (
@@ -90,54 +86,33 @@ export default function Home() {
           </div>
 
           <div className="quote-card">
-            <div className="quote-card-heading">
-              <div>
-                <span className="quote-kicker">LET&apos;S GET YOU MOVING</span>
-                <h2>Get a quote</h2>
-              </div>
-              <div className="quote-car-icon" aria-hidden="true">🚘</div>
-            </div>
-            <p className="quote-intro">Start with a few details about the car and when you need cover.</p>
+            <h2>Get Temporary Car Insurance in<br />Under 2 Minutes</h2>
+            <p className="quote-subheading">Short term cover for cars</p>
+            <p className="quote-intro">Flexible short-term cover from 1 hour to 28 days – without the annual commitment.</p>
+            <div className="quote-divider"><span>Cover from <strong>1 hour to 28 days</strong> for your car</span></div>
             <form onSubmit={handleQuoteSubmit} noValidate>
-              <label htmlFor="registration">Vehicle registration</label>
-              <div className="registration-field">
-                <span className="gb-mark"><span>🇬🇧</span><small>GB</small></span>
-                <input
-                  id="registration"
-                  name="registration"
-                  value={registration}
-                  onChange={(event) => setRegistration(event.target.value.toUpperCase())}
-                  placeholder="ENTER REG"
-                  autoComplete="off"
-                  maxLength={8}
-                  required
-                />
+              <label className="sr-only" htmlFor="registration">Vehicle registration</label>
+              <div className="quote-action-row">
+                <div className="registration-field">
+                  <span className="gb-mark"><span>🇬🇧</span><small>UK</small></span>
+                  <input
+                    id="registration"
+                    name="registration"
+                    value={registration}
+                    onChange={(event) => setRegistration(event.target.value.toUpperCase())}
+                    placeholder="ENTER REG"
+                    autoComplete="off"
+                    maxLength={8}
+                    required
+                  />
+                </div>
+                <button className="quote-submit" type="submit">Get A Quote <span aria-hidden="true">➜</span></button>
               </div>
-              <label htmlFor="start-date">When do you need cover?</label>
-              <input
-                className="form-control"
-                id="start-date"
-                name="startDate"
-                type="datetime-local"
-                value={startDate}
-                onChange={(event) => setStartDate(event.target.value)}
-                required
-              />
-              <label htmlFor="duration">How long for?</label>
-              <select
-                className="form-control"
-                id="duration"
-                name="duration"
-                value={duration}
-                onChange={(event) => setDuration(event.target.value)}
-              >
-                {durations.map((item) => <option key={item} value={item}>{item}</option>)}
-              </select>
-              <button className="quote-submit" type="submit">Continue <span aria-hidden="true">→</span></button>
+              <p className="quote-reg-help">Don’t know the reg? Click here.</p>
               {message && <p className="form-message" role="status">{message}</p>}
-              <p className="quote-small">No payment is taken here. This is a demonstration of the new quote journey.</p>
             </form>
-            <div className="quote-card-foot"><span>🔒</span> Your details should always be handled securely.</div>
+            <div className="quote-bottom-line" />
+            <p className="quote-disclaimer">Website preview – no live quote or insurance cover is available yet.</p>
           </div>
         </div>
       </section>
