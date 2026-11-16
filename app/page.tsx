@@ -105,7 +105,6 @@ export default function Home() {
             </form>
             <Link className="quote-prices-link" href="/quote/">View daily, weekly and monthly prices <span aria-hidden="true">→</span></Link>
             <div className="quote-bottom-line" />
-            <p className="quote-disclaimer">Website preview – no live quote or insurance cover is available yet.</p>
           </div>
         </div>
       </section>
