@@ -36,8 +36,8 @@ Deno.serve(async (request) => {
     const dateOfBirth = String(body.dateOfBirth || "");
     const startValue = String(body.coverStart || "");
     if (!plan || registration.length < 2 || registration.length > 8 ||
-        !/^[A-Z0-9 ]+$/.test(registration) || !customerName ||
-        customerName.length > 120 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail) ||
+        !/^[A-Z0-9 ]+$/.test(registration) || !customerName || !customerPhone || !/^\\d{4}-\\d{2}-\\d{2}$/.test(dateOfBirth) ||
+        customerName.length > 120 || customerPhone.length > 30 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail) ||
         !Number.isFinite(Date.parse(startValue))) {
       return json({ error: "Please check your details and try again." }, 400);
     }
