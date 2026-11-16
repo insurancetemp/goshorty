@@ -1,74 +1,48 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import Stripe from "npm:stripe@17";
-
 Deno.serve(async (request) => {
   if (request.method !== "POST") return new Response("Method not allowed", { status: 405 });
-
-  const stripeSecret = Deno.env.get("STRIPE_SECRET_KEY");
-  const webhookSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET");
-  const supabaseUrl = Deno.env.get("SUPABASE_URL");
-  const serviceRole = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-  if (!stripeSecret || !webhookSecret || !supabaseUrl || !serviceRole) {
-    return new Response("Webhook environment is not configured", { status: 500 });
-  }
-
+  const stripeSecret = Deno.env.get("STRIPE_SECRET_KEY"), webhookSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET");
+  const supabaseUrl = Deno.env.get("SUPABASE_URL"), serviceRole = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  const siteUrl = Deno.env.get("SITE_URL"), resendKey = Deno.env.get("RESEND_API_KEY"), emailFrom = Deno.env.get("EMAIL_FROM");
+  if (!stripeSecret || !webhookSecret || !supabaseUrl || !serviceRole || !siteUrl || !resendKey || !emailFrom) return new Response("Webhook environment is not configured", { status: 500 });
   const signature = request.headers.get("stripe-signature");
   if (!signature) return new Response("Missing Stripe signature", { status: 400 });
-
   const stripe = new Stripe(stripeSecret, { httpClient: Stripe.createFetchHttpClient() });
-  const rawBody = await request.text();
   let event: Stripe.Event;
-  try {
-    event = await stripe.webhooks.constructEventAsync(rawBody, signature, webhookSecret);
-  } catch (error) {
-    console.error("Stripe signature verification failed:", error);
-    return new Response("Invalid signature", { status: 400 });
-  }
-
+  try { event = await stripe.webhooks.constructEventAsync(await request.text(), signature, webhookSecret); }
+  catch (error) { console.error(error); return new Response("Invalid signature", { status: 400 }); }
   if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session;
+    const session = event.data.object as Stripe.Checkout.Session, meta = session.metadata || {};
     if (session.payment_status !== "paid") return new Response("Payment not completed", { status: 200 });
-
-    const metadata = session.metadata || {};
-    const email = metadata.customer_email || session.customer_details?.email;
-    const name = metadata.customer_name || session.customer_details?.name || "GoShorty customer";
-    const registration = metadata.vehicle_registration;
-    const plan = metadata.plan;
-    const start = metadata.cover_start;
-    const end = metadata.cover_end;
-    if (!email || !registration || !plan || !start || !end) {
-      console.error("Completed checkout is missing required metadata", session.id);
-      return new Response("Missing checkout metadata", { status: 400 });
-    }
-
+    const email = (meta.customer_email || session.customer_details?.email || "").toLowerCase();
+    const name = meta.customer_name || session.customer_details?.name || "GoShorty customer";
+    const reg = meta.vehicle_registration, plan = meta.plan, start = meta.cover_start, end = meta.cover_end;
+    if (!email || !reg || !plan || !start || !end) return new Response("Missing checkout metadata", { status: 400 });
     const supabase = createClient(supabaseUrl, serviceRole);
-    const { data: existing } = await supabase
-      .from("orders").select("id").eq("stripe_checkout_session_id", session.id).maybeSingle();
+    const { data: existing } = await supabase.from("orders").select("id").eq("stripe_checkout_session_id", session.id).maybeSingle();
     if (!existing) {
-      const orderReference = `GS-${new Date().getUTCFullYear()}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
-      const { error } = await supabase.from("orders").insert({
-        customer_email: email.toLowerCase(),
-        customer_name: name,
-        vehicle_registration: registration,
-        plan,
-        amount_pence: session.amount_total,
-        currency: session.currency,
-        cover_start: start,
-        cover_end: end,
-        stripe_checkout_session_id: session.id,
-        stripe_payment_intent_id: typeof session.payment_intent === "string" ? session.payment_intent : null,
-        payment_status: "paid",
-        order_reference: orderReference,
-      });
-      if (error) {
-        console.error("Unable to save paid order:", error);
-        return new Response("Could not save order", { status: 500 });
+      let userId: string | null = null;
+      const created = await supabase.auth.admin.createUser({ email, email_confirm: true, user_metadata: { full_name: name } });
+      if (created.data.user) userId = created.data.user.id;
+      else {
+        const users = await supabase.auth.admin.listUsers({ page: 1, perPage: 1000 });
+        const found = users.data.users.find((u) => u.email?.toLowerCase() === email);
+        if (!found) return new Response("Could not create customer account", { status: 500 });
+        userId = found.id;
       }
+      const orderRef = "GS-" + new Date().getUTCFullYear() + "-" + crypto.randomUUID().slice(0, 8).toUpperCase();
+      const { error } = await supabase.from("orders").insert({ user_id: userId, customer_email: email, customer_name: name, vehicle_registration: reg, plan, amount_pence: session.amount_total, currency: session.currency, cover_start: start, cover_end: end, stripe_checkout_session_id: session.id, stripe_payment_intent_id: typeof session.payment_intent === "string" ? session.payment_intent : null, payment_status: "paid", order_reference: orderRef });
+      if (error) { console.error(error); return new Response("Could not save order", { status: 500 }); }
+      const link = await supabase.auth.admin.generateLink({ type: "recovery", email, options: { redirectTo: siteUrl.replace(/\/$/, "") + "/set-password/" } });
+      if (link.error || !link.data.properties?.action_link) return new Response("Could not create password setup link", { status: 500 });
+      const startText = new Date(start).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/London" });
+      const endText = new Date(end).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/London" });
+      const html = "<h1>Thanks for your order, " + safe(name) + "</h1><p>Your payment has been received.</p><p><b>Order:</b> " + orderRef + "<br><b>Vehicle:</b> " + safe(reg) + "<br><b>Package:</b> " + safe(plan) + "<br><b>Start:</b> " + startText + "<br><b>End:</b> " + endText + "<br><b>Paid:</b> £" + ((session.amount_total || 0) / 100).toFixed(2) + "</p><p><a href=\"" + link.data.properties.action_link + "\">Set your account password</a></p><p>Sign in to your GoShorty portal to view your order.</p>";
+      const sent = await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: "Bearer " + resendKey, "Content-Type": "application/json" }, body: JSON.stringify({ from: emailFrom, to: [email], subject: "Your GoShorty order confirmation - " + orderRef, html }) });
+      if (!sent.ok) { console.error(await sent.text()); return new Response("Order saved but email failed", { status: 500 }); }
     }
   }
-
-  return new Response(JSON.stringify({ received: true }), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+  return new Response(JSON.stringify({ received: true }), { status: 200, headers: { "Content-Type": "application/json" } });
 });
+function safe(s: string) { return s.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;"); }
