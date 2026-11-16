@@ -46,7 +46,6 @@ export default function QuotePage() {
               </article>
             ))}
           </div>
-          <p className="pricing-disclaimer"><strong>Important:</strong> The daily, weekly and monthly prices shown have been confirmed by the insurer and are fixed regardless of the car or the driver’s age. The live quote and policy systems are not connected to this website yet, so these prices cannot currently be used to purchase a policy and no insurance cover is provided by this website.</p>
           <Link className="pricing-back" href="/">← Back to GoShorty</Link>
         </div>
       </section>
