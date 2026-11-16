@@ -25,6 +25,8 @@ export default function GetAQuotePage() {
   const [startTime, setStartTime] = useState("09:00");
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [notice, setNotice] = useState("");
   const [loading, setLoading] = useState(false);
   const price = useMemo(() => prices[plan], [plan]);
@@ -32,7 +34,7 @@ export default function GetAQuotePage() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setNotice("");
-    if (!registration.trim() || !startDate || !startTime || !customerName.trim() || !customerEmail.trim()) {
+    if (!registration.trim() || !startDate || !startTime || !customerName.trim() || !customerEmail.trim() || !customerPhone.trim() || !dateOfBirth) {
       setNotice("Please complete all the fields to continue.");
       return;
     }
@@ -51,6 +53,8 @@ export default function GetAQuotePage() {
           coverStart: coverStart.toISOString(),
           customerName: customerName.trim(),
           customerEmail: customerEmail.trim(),
+          customerPhone: customerPhone.trim(),
+          dateOfBirth,
         },
       });
       if (error) throw error;
@@ -100,6 +104,10 @@ export default function GetAQuotePage() {
               <input id="customer-name" value={customerName} onChange={e => setCustomerName(e.target.value)} autoComplete="name" required />
               <label htmlFor="customer-email" style={{ marginTop: 15 }}>Email address</label>
               <input id="customer-email" type="email" value={customerEmail} onChange={e => setCustomerEmail(e.target.value)} autoComplete="email" required />
+              <label htmlFor="customer-phone" style={{ marginTop: 15 }}>Mobile number</label>
+              <input id="customer-phone" type="tel" value={customerPhone} onChange={e => setCustomerPhone(e.target.value)} autoComplete="tel" required />
+              <label htmlFor="driver-dob" style={{ marginTop: 15 }}>Driver date of birth</label>
+              <input id="driver-dob" type="date" value={dateOfBirth} onChange={e => setDateOfBirth(e.target.value)} required />
               <div className="form-section-rule" />
               <h2>4. When should cover start?</h2>
               <div className="getquote-date-grid">
