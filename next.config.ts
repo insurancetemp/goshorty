@@ -7,9 +7,9 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true
   },
-  // GitHub Pages serves this project from /goshorty rather than the domain root.
-  // Local builds and future custom-domain builds keep the root path.
-  basePath: process.env.GITHUB_PAGES === "true" ? "/goshorty" : ""
+  // The site is served from the root of the custom domain getgoshorty.co.uk.
+  // Do not add the old GitHub Pages /goshorty path prefix.
+  basePath: ""
 };
 
 export default nextConfig;
