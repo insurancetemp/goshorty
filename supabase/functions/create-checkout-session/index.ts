@@ -36,6 +36,7 @@ Deno.serve(async (request) => {
     const drivingLicenseNumber = String(body.drivingLicenseNumber || "").trim().toUpperCase();
     const vehicleMake = String(body.vehicleMake || "").trim();
     const vehicleModel = String(body.vehicleModel || "").trim();
+    const vehicleYear = Number(body.vehicleYear);
     const vehicleColour = String(body.vehicleColour || "").trim();
     const fuelType = String(body.fuelType || "").trim();
     const startValue = String(body.coverStart || "");
