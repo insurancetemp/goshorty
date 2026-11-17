@@ -54,7 +54,11 @@ export default function AccountPage() {
           <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>From: {new Date(order.cover_start).toLocaleString("en-GB")}</p>
           <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Until: {new Date(order.cover_end).toLocaleString("en-GB")}</p>
           {order.driver_date_of_birth && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Driver date of birth: {order.driver_date_of_birth}</p>}
-          {order.customer_phone && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Contact: {order.customer_phone}</p>}\n          {order.customer_address && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Address: {order.customer_address}</p>}\n          {order.driving_license_number && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Driving licence: {order.driving_license_number}</p>}\n          {order.vehicle_colour && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Colour: {order.vehicle_colour}</p>}\n          {order.fuel_type && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Fuel: {order.fuel_type}</p>}
+          {order.customer_phone && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Contact: {order.customer_phone}</p>}
+          {order.customer_address && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Address: {order.customer_address}</p>}
+          {order.driving_license_number && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Driving licence: {order.driving_license_number}</p>}
+          {order.vehicle_colour && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Colour: {order.vehicle_colour}</p>}
+          {order.fuel_type && <p style={{ margin: "5px 0", color: "#687386", fontSize: 12 }}>Fuel: {order.fuel_type}</p>}
           <button type="button" onClick={() => window.print()} className="pricing-choose-link">Print order document</button>
           <p style={{ margin: "9px 0 0", color: "#4d2d83", fontSize: 12, fontWeight: 800 }}>Payment: {order.payment_status}</p>
         </article>)}
