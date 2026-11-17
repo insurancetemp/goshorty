@@ -37,7 +37,7 @@ Deno.serve(async (request) => {
         user_id: userId, customer_email: email, customer_name: name, customer_phone: application.customer_phone,
         driver_date_of_birth: application.driver_date_of_birth, customer_address: application.customer_address,
         driving_license_number: application.driving_license_number, vehicle_registration: application.vehicle_registration,
-        vehicle_make: application.vehicle_make, vehicle_model: application.vehicle_model, vehicle_colour: application.vehicle_colour,
+        vehicle_make: application.vehicle_make, vehicle_model: application.vehicle_model, vehicle_year: application.vehicle_year, vehicle_colour: application.vehicle_colour,
         fuel_type: application.fuel_type, plan: application.plan, amount_pence: session.amount_total, currency: session.currency,
         cover_start: application.cover_start, cover_end: application.cover_end, stripe_checkout_session_id: session.id,
         stripe_payment_intent_id: typeof session.payment_intent === "string" ? session.payment_intent : null,
@@ -52,7 +52,7 @@ Deno.serve(async (request) => {
       const endText = new Date(application.cover_end).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/London" });
       const html = "<h1>Thanks for your order, " + safe(name) + "</h1><p>Your payment has been received.</p><p><b>Order:</b> " + orderRef +
         "<br><b>Vehicle:</b> " + safe(application.vehicle_registration) + " · " + safe(application.vehicle_make) + " " + safe(application.vehicle_model) +
-        "<br><b>Colour:</b> " + safe(application.vehicle_colour) + "<br><b>Fuel:</b> " + safe(application.fuel_type) +
+        "<br><b>Year:</b> " + safe(String(application.vehicle_year)) + "<br><b>Colour:</b> " + safe(application.vehicle_colour) + "<br><b>Fuel:</b> " + safe(application.fuel_type) +
         "<br><b>Package:</b> " + safe(application.plan) + "<br><b>Driver DOB:</b> " + safe(application.driver_date_of_birth) +
         "<br><b>Contact:</b> " + safe(application.customer_phone) + "<br><b>Address:</b> " + safe(application.customer_address) +
         "<br><b>Start:</b> " + startText + "<br><b>End:</b> " + endText + "<br><b>Paid:</b> £" + ((session.amount_total || 0) / 100).toFixed(2) +
