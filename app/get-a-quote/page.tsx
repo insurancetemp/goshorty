@@ -27,6 +27,12 @@ function GetAQuoteForm() {
   const [customerEmail, setCustomerEmail] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
+  const [address, setAddress] = useState("");
+  const [drivingLicenseNumber, setDrivingLicenseNumber] = useState("");
+  const [vehicleMake, setVehicleMake] = useState("");
+  const [vehicleModel, setVehicleModel] = useState("");
+  const [vehicleColour, setVehicleColour] = useState("");
+  const [fuelType, setFuelType] = useState("");
   const [notice, setNotice] = useState("");
   const [loading, setLoading] = useState(false);
   const price = useMemo(() => prices[plan], [plan]);
@@ -34,7 +40,7 @@ function GetAQuoteForm() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setNotice("");
-    if (!registration.trim() || !startDate || !startTime || !customerName.trim() || !customerEmail.trim() || !customerPhone.trim() || !dateOfBirth) {
+    if (!registration.trim() || !startDate || !startTime || !customerName.trim() || !customerEmail.trim() || !customerPhone.trim() || !dateOfBirth || !address.trim() || !drivingLicenseNumber.trim() || !vehicleMake.trim() || !vehicleModel.trim() || !vehicleColour.trim() || !fuelType) {
       setNotice("Please complete all the fields to continue.");
       return;
     }
@@ -55,6 +61,12 @@ function GetAQuoteForm() {
           customerEmail: customerEmail.trim(),
           customerPhone: customerPhone.trim(),
           dateOfBirth,
+          address: address.trim(),
+          drivingLicenseNumber: drivingLicenseNumber.trim(),
+          vehicleMake: vehicleMake.trim(),
+          vehicleModel: vehicleModel.trim(),
+          vehicleColour: vehicleColour.trim(),
+          fuelType,
         },
       });
       if (error) throw error;
@@ -106,10 +118,32 @@ function GetAQuoteForm() {
               <input id="customer-email" type="email" value={customerEmail} onChange={e => setCustomerEmail(e.target.value)} autoComplete="email" required />
               <label htmlFor="customer-phone" style={{ marginTop: 15 }}>Mobile number</label>
               <input id="customer-phone" type="tel" value={customerPhone} onChange={e => setCustomerPhone(e.target.value)} autoComplete="tel" required />
-              <label htmlFor="driver-dob" style={{ marginTop: 15 }}>Driver date of birth</label>
-              <input id="driver-dob" type="date" value={dateOfBirth} onChange={e => setDateOfBirth(e.target.value)} required />
+              <label htmlFor="driver-dob" style={{ marginTop: 15 }}>Date of birth</label>
+              <input id="driver-dob" type="date" value={dateOfBirth} onChange={e => setDateOfBirth(e.target.value)} autoComplete="bday" required />
+              <label htmlFor="customer-address" style={{ marginTop: 15 }}>Full address</label>
+              <textarea id="customer-address" value={address} onChange={e => setAddress(e.target.value)} autoComplete="street-address" rows={3} maxLength={300} required />
+              <label htmlFor="driving-license" style={{ marginTop: 15 }}>Driving licence number</label>
+              <input id="driving-license" value={drivingLicenseNumber} onChange={e => setDrivingLicenseNumber(e.target.value.toUpperCase())} autoComplete="off" maxLength={32} required />
               <div className="form-section-rule" />
-              <h2>4. When should cover start?</h2>
+              <h2>4. Your vehicle details</h2>
+              <label htmlFor="vehicle-make">Car make</label>
+              <input id="vehicle-make" value={vehicleMake} onChange={e => setVehicleMake(e.target.value)} placeholder="e.g. Ford" maxLength={60} required />
+              <label htmlFor="vehicle-model" style={{ marginTop: 15 }}>Car model</label>
+              <input id="vehicle-model" value={vehicleModel} onChange={e => setVehicleModel(e.target.value)} placeholder="e.g. Fiesta" maxLength={60} required />
+              <label htmlFor="vehicle-colour" style={{ marginTop: 15 }}>Car colour</label>
+              <input id="vehicle-colour" value={vehicleColour} onChange={e => setVehicleColour(e.target.value)} placeholder="e.g. Blue" maxLength={40} required />
+              <label htmlFor="fuel-type" style={{ marginTop: 15 }}>Fuel type</label>
+              <select id="fuel-type" value={fuelType} onChange={e => setFuelType(e.target.value)} required>
+                <option value="">Choose fuel type</option>
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Plug-in hybrid">Plug-in hybrid</option>
+                <option value="Electric">Electric</option>
+                <option value="Other">Other</option>
+              </select>
+              <div className="form-section-rule" />
+              <h2>5. When should cover start?</h2>
               <div className="getquote-date-grid">
                 <div><label htmlFor="cover-date">Start date</label><input id="cover-date" type="date" value={startDate} onChange={e => setStartDate(e.target.value)} required /></div>
                 <div><label htmlFor="cover-time">Start time</label><input id="cover-time" type="time" value={startTime} onChange={e => setStartTime(e.target.value)} required /></div>
