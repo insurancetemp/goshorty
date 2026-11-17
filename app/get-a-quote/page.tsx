@@ -31,6 +31,7 @@ function GetAQuoteForm() {
   const [drivingLicenseNumber, setDrivingLicenseNumber] = useState("");
   const [vehicleMake, setVehicleMake] = useState("");
   const [vehicleModel, setVehicleModel] = useState("");
+  const [vehicleYear, setVehicleYear] = useState("");
   const [vehicleColour, setVehicleColour] = useState("");
   const [fuelType, setFuelType] = useState("");
   const [notice, setNotice] = useState("");
@@ -40,7 +41,7 @@ function GetAQuoteForm() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setNotice("");
-    if (!registration.trim() || !startDate || !startTime || !customerName.trim() || !customerEmail.trim() || !customerPhone.trim() || !dateOfBirth || !address.trim() || !drivingLicenseNumber.trim() || !vehicleMake.trim() || !vehicleModel.trim() || !vehicleColour.trim() || !fuelType) {
+    if (!registration.trim() || !startDate || !startTime || !customerName.trim() || !customerEmail.trim() || !customerPhone.trim() || !dateOfBirth || !address.trim() || !drivingLicenseNumber.trim() || !vehicleMake.trim() || !vehicleModel.trim() || !vehicleYear || !vehicleColour.trim() || !fuelType) {
       setNotice("Please complete all the fields to continue.");
       return;
     }
@@ -65,6 +66,7 @@ function GetAQuoteForm() {
           drivingLicenseNumber: drivingLicenseNumber.trim(),
           vehicleMake: vehicleMake.trim(),
           vehicleModel: vehicleModel.trim(),
+          vehicleYear: Number(vehicleYear),
           vehicleColour: vehicleColour.trim(),
           fuelType,
         },
@@ -130,6 +132,8 @@ function GetAQuoteForm() {
               <input id="vehicle-make" value={vehicleMake} onChange={e => setVehicleMake(e.target.value)} placeholder="e.g. Ford" maxLength={60} required />
               <label htmlFor="vehicle-model" style={{ marginTop: 15 }}>Car model</label>
               <input id="vehicle-model" value={vehicleModel} onChange={e => setVehicleModel(e.target.value)} placeholder="e.g. Fiesta" maxLength={60} required />
+              <label htmlFor="vehicle-year" style={{ marginTop: 15 }}>Year of car</label>
+              <input id="vehicle-year" type="number" value={vehicleYear} onChange={e => setVehicleYear(e.target.value)} placeholder="e.g. 2020" min="1886" max={new Date().getFullYear() + 1} step="1" inputMode="numeric" required />
               <label htmlFor="vehicle-colour" style={{ marginTop: 15 }}>Car colour</label>
               <input id="vehicle-colour" value={vehicleColour} onChange={e => setVehicleColour(e.target.value)} placeholder="e.g. Blue" maxLength={40} required />
               <label htmlFor="fuel-type" style={{ marginTop: 15 }}>Fuel type</label>
