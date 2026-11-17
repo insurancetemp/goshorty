@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, Suspense, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
@@ -15,7 +15,7 @@ function supabaseBrowser() {
   return createClient(url, key);
 }
 
-export default function GetAQuotePage() {
+function GetAQuoteForm() {
   const params = useSearchParams();
   const initialReg = (params.get("reg") || "").toUpperCase();
   const initialPlan = (params.get("plan") || "daily") as Plan;
@@ -131,5 +131,14 @@ export default function GetAQuotePage() {
         </div>
       </section>
     </main>
+  );
+}
+
+
+export default function GetAQuotePage() {
+  return (
+    <Suspense fallback={<main className="getquote-page"><div className="container">Loading quote form…</div></main>}>
+      <GetAQuoteForm />
+    </Suspense>
   );
 }
