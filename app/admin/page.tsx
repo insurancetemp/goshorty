@@ -69,11 +69,11 @@ export default function AdminPage() {
     event.preventDefault();
     setSaving(true);
     setNotice("");
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const customer = Object.fromEntries(form.entries());
     customer.registration = String(customer.registration || "").trim().toUpperCase();
     customer.drivingLicenseNumber = String(customer.drivingLicenseNumber || "").trim().toUpperCase();
-    customer.vehicleYear = Number(customer.vehicleYear);
     try {
       const { data, error } = await supabaseBrowser().functions.invoke("admin-portal", {
         body: { action: "create-free-order", customer },
@@ -82,7 +82,7 @@ export default function AdminPage() {
       if (data?.error) throw new Error(data.error);
       const emailMessage = data.emailSent ? "The customer confirmation and password setup email was sent." : (data.emailWarning || "The order was saved.");
       setNotice("Complimentary order " + data.order.order_reference + " created successfully. " + emailMessage);
-      (event.currentTarget as HTMLFormElement).reset();
+      formElement.reset();
       setRefreshKey(value => value + 1);
     } catch (error) {
       setNotice(error instanceof Error ? error.message : "Could not create the complimentary order.");
